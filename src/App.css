@@ -1,0 +1,22 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-family: Roboto, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    background-color: #53C9BD;
+}
+
+.form-label {
+    color: white;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+h1 {
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+}
