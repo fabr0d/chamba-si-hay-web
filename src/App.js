@@ -6,18 +6,21 @@ import {
 } from "react-router-dom";
 import Login from './pages/Login'
 import Register from './pages/Register'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 export default function App() {
   return (
     <div className="app">
-      <Router>
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-        </Switch>
-      </Router>
+      <div className="app-container">
+        <Router>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+          </Switch>
+        </Router>
+      </div>
     </div>
   );
 }
