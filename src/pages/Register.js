@@ -1,14 +1,31 @@
 import React from 'react'
+import styled from 'styled-components'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { ReactComponent as Logo } from '../assets/logo.svg'
-import './Register.css'
+import Logo from '../assets/logo.svg'
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 64px;
+  width: 100%;
+
+  background: linear-gradient(rgba(0, 152, 141, 0.68), rgba(0, 152, 141, 0.68)),
+  url("/assets/login-register-background.jpg");
+  background-size: cover;
+  
+  @media screen and (max-width: 600px) {
+    height: 100%;
+  }
+`
 
 function Register() {
   return (
-    <div className="register-container">
+    <Container>
       <div style={{ marginTop: 50 }}>
-        <Logo/>
+        <img src={Logo} alt='' />
       </div>
 
       <h1>Chamba Si</h1>
@@ -27,7 +44,7 @@ function Register() {
           Confirmar registro
         </Button>
       </Form.Group>
-    </div>
+    </Container>
   )
 }
 
