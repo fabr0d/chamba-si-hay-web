@@ -7,6 +7,7 @@ import {
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
+import JobDescription from './pages/JobDescription'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -18,6 +19,7 @@ export default function App() {
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/job-description" component={JobDescription} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
           </Switch>
