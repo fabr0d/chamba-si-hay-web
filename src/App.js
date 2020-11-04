@@ -8,24 +8,27 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import JobDescription from './pages/JobDescription'
+import { SidebarProvider } from './hooks/useSidebar'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 export default function App() {
   return (
-    <div className="app">
-      <div className="app-container">
-        <Router>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/job-description" component={JobDescription} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-          </Switch>
-        </Router>
+    <SidebarProvider>
+      <div className="app">
+        <div className="app-container">
+          <Router>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/job-description" component={JobDescription} />
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
+            </Switch>
+          </Router>
+        </div>
       </div>
-    </div>
+    </SidebarProvider>
   );
 }
 

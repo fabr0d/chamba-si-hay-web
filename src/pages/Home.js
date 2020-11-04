@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
 
+import { useSidebar } from '../hooks/useSidebar'
 import { ReactComponent as MoneyIcon } from '../assets/money.svg'
 import './Home.css'
 
@@ -54,13 +55,21 @@ function Announcements() {
 }
 
 function Header () {
+  const [toggle] = useSidebar()
+
   return (
     <Navbar style={{ padding: 0 }}>
       <div style={{ width: '100%' }}>
         <div style={ { display: 'flex', flexDirection: 'row' } }>
-          <FontAwesomeIcon icon={ faBars } color='white' size='2x' />
+          <div onClick={toggle} style={{ cursor: 'pointer' }}>
+            <FontAwesomeIcon
+              icon={ faBars }
+              color='white'
+              size='2x'
+            />
+          </div>
           <h2 style={{ marginLeft: 16 }}>
-            Trabajos
+            Mis Trabajos
           </h2>
         </div>
         <div>
