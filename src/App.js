@@ -13,6 +13,7 @@ import JobDescription from './pages/JobDescription'
 import { SidebarProvider } from './hooks/useSidebar'
 import { AuthProvider } from './hooks/useAuth'
 import CreateJob from './pages/CreateJob'
+import Chat from './pages/Chat'
 
 const AppContainer = styled.div`
     display: flex;
@@ -53,6 +54,7 @@ export default function App() {
                 <Route path="/register" component={Register} />
                 <Route path="/job-description" component={JobDescription} />
                 <Route path="/create-job" component={CreateJob} />
+                <Route path="/chat" component={Chat} />
               </Switch>
             </Router>
           </AppInnerContainer>
