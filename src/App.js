@@ -12,6 +12,7 @@ import Home from './pages/Home'
 import JobDescription from './pages/JobDescription'
 import { SidebarProvider } from './hooks/useSidebar'
 import { AuthProvider } from './hooks/useAuth'
+import CreateJob from './pages/CreateJob'
 
 const AppContainer = styled.div`
     display: flex;
@@ -48,9 +49,10 @@ export default function App() {
             <Router>
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route path="/job-description" component={JobDescription} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
+                <Route path="/job-description" component={JobDescription} />
+                <Route path="/create-job" component={CreateJob} />
               </Switch>
             </Router>
           </AppInnerContainer>
