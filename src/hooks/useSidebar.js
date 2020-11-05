@@ -1,29 +1,51 @@
 import React, { createContext, useContext, useState } from 'react'
 import Sidebar from 'react-sidebar'
-import { ReactComponent as ProfileIcon } from '../assets/profile.svg'
+import styled from 'styled-components'
 import Button from 'react-bootstrap/Button'
 
-const sidebarContainer = {
-  backgroundColor: '#00988D',
-  height: '100%',
-  width: '100%',
-  paddingTop: 64,
-  paddingLeft: 16,
-  paddingRight: 16,
-  color: 'white'
-}
+import { ReactComponent as ProfileIcon } from '../assets/profile.svg'
+import { useAuth } from './useAuth'
+
+const SidebarContainer = styled.div`
+  background-color: #00988D;
+  height: 100%;
+  width: 100%;
+  padding-top: 64px;
+  padding-left: 16px;
+  padding-right: 16px;
+  color: white;
+`
+
+const UserInformation = styled.div`
+  display: flex;
+`
+
+const Navigation = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  
+  margin-top: 32px;
+`
 
 function SidebarContent() {
+  const [user, loading, error] = useAuth()
+
   return (
-    <div style={sidebarContainer}>
-      <div style={{ display: 'flex' }}>
+    <SidebarContainer>
+      <UserInformation>
         <ProfileIcon />
         <div style={{ marginLeft: 16, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <h6>Nombre</h6>
-          <div style={{ fontSize: 14 }}>Email</div>
+          <h6>
+            { user.name }
+          </h6>
+          <div style={{ fontSize: 14 }}>
+            { user.email }
+          </div>
         </div>
-      </div>
-      <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      </UserInformation>
+
+      <Navigation>
         <div>
           Inicio
         </div>
@@ -33,22 +55,27 @@ function SidebarContent() {
         <div style={{ color: '#C4C4C4' }}>
           Perfil
         </div>
-      </div>
+      </Navigation>
+
       <div style={{ marginTop: 64 }}>
-        <Button variant='outline-but-invalid' style={{ border: '1px solid white', color: 'white', borderRadius: 20 }} >
-          Cambiar a Empleador
+        <Button
+          variant='outline-but-invalid'
+          style={{ border: '1px solid white', color: 'white', borderRadius: 20 }}
+        >
+          Cambiar a { user.role === 'employer'? "Empleador": "Empleado" }
         </Button>
       </div>
       <hr color='#EEEEEE' style={{ margin: '16px -16px' }} />
-      <div style={{ marginTop: 32, display: 'flex', flexDirection: 'column', gap: 16 }}>
+
+      <Navigation>
         <div style={{ color: '#C4C4C4' }}>
           Configuración
         </div>
         <div style={{ color: '#C4C4C4' }}>
           Cerrar Sesión
         </div>
-      </div>
-    </div>
+      </Navigation>
+    </SidebarContainer>
   )
 }
 

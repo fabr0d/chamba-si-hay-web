@@ -11,6 +11,7 @@ import Register from './pages/Register'
 import Home from './pages/Home'
 import JobDescription from './pages/JobDescription'
 import { SidebarProvider } from './hooks/useSidebar'
+import { AuthProvider } from './hooks/useAuth'
 
 const AppContainer = styled.div`
     display: flex;
@@ -40,20 +41,22 @@ const AppInnerContainer = styled.div`
 
 export default function App() {
   return (
-    <SidebarProvider>
-      <AppContainer>
-        <AppInnerContainer>
-          <Router>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/job-description" component={JobDescription} />
-              <Route path="/login" component={Login} />
-              <Route path="/register" component={Register} />
-            </Switch>
-          </Router>
-        </AppInnerContainer>
-      </AppContainer>
-    </SidebarProvider>
+    <AuthProvider>
+      <SidebarProvider>
+        <AppContainer>
+          <AppInnerContainer>
+            <Router>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/job-description" component={JobDescription} />
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
+              </Switch>
+            </Router>
+          </AppInnerContainer>
+        </AppContainer>
+      </SidebarProvider>
+    </AuthProvider>
   );
 }
 
