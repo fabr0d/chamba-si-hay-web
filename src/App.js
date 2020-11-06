@@ -2,54 +2,66 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
+import styled from 'styled-components'
+
+import Login from './pages/Login'
+import Register from './pages/Register'
+import Home from './pages/Home'
+import JobDescription from './pages/JobDescription'
+import { SidebarProvider } from './hooks/useSidebar'
+import { AuthProvider } from './hooks/useAuth'
+import CreateJob from './pages/CreateJob'
+import Chat from './pages/Chat'
+
+const AppContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    font-family: Roboto, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    background-color: #53C9BD;
+`
+
+const AppInnerContainer = styled.div`
+    width: 100%;
+    max-width: 400px;
+    margin-top: 100px;
+    
+    @media screen and (max-width: 600px) {
+        max-width: 100vw;
+        max-height: 100vh;
+        width: 100%;
+        height: 100%;
+
+        margin-top: 0;
+    }
+`
 
 export default function App() {
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    <AuthProvider>
+      <SidebarProvider>
+        <AppContainer>
+          <AppInnerContainer>
+            <Router>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
+                <Route path="/job-description" component={JobDescription} />
+                <Route path="/create-job" component={CreateJob} />
+                <Route path="/chat" component={Chat} />
+              </Switch>
+            </Router>
+          </AppInnerContainer>
+        </AppContainer>
+      </SidebarProvider>
+    </AuthProvider>
   );
 }
 
-function Home() {
-  return <h2>Home</h2>;
-}
 
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
-}
