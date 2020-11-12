@@ -22,6 +22,9 @@ const Container = styled.div`
 `
 
 function Login() {
+
+    
+
   return (
     <Container>
       <div style={{ marginTop: 50 }}>
@@ -36,11 +39,11 @@ function Login() {
         <Form.Control type='text' placeholder='Usuario' name="username"/>
         <Form.Label>Contraseña</Form.Label>
         <Form.Control type='password' placeholder='Contraseña' />
-        <Button variant="primary" block style={{ marginTop: 32 }}>
+        <Button variant="primary" block style={{ marginTop: 32, backgroundColor:"#53C9BD" }}>
           Iniciar Sesión
         </Button>
         <Button variant="light" block>
-          Registrarse
+          Crear cuenta
         </Button>
       </Form.Group>
     </Container>
