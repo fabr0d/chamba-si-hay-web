@@ -89,7 +89,8 @@ const AnnouncementsContainer = styled.div`
   position: relative;
   gap: 16px;
   
-  padding: 24px 5% 0 5%;
+  padding: 24px 6% 10% 6%;
+  
 `
 
 const ButtonAddJob = () => {
@@ -127,9 +128,8 @@ function Announcements({ role }) {
   },[]);
 
   const getJobs = async() =>{
-    const userType = getUserType();
     let result = {};
-    if(userType === "employer"){
+    if(role === "employer"){
       result = await JobService.getMyPublishJobs();
     }
     else{
@@ -146,6 +146,8 @@ function Announcements({ role }) {
       {jobs.map((item, index) => {
         return <JobCard item={item} key={(index+1).toString()} role={role} />
       })}
+
+      {role==="employer" && <ButtonAddJob/>}
     </AnnouncementsContainer>
   )
 }
@@ -239,12 +241,10 @@ const Container = styled.div`
 
 function Home() {
   const [user, loading, error] = useAuth()
-  const userType = getUserType();
   return (
     <Container>
       <Header role={user.role} />
-      <Announcements role={user.role} />
-      {userType==="employer" && <ButtonAddJob/>}
+      <Announcements role={user.role} />     
     </Container>
   )
 }
