@@ -13,6 +13,7 @@ import { useSidebar } from '../hooks/useSidebar'
 import { ReactComponent as MoneyIcon } from '../assets/money.svg'
 import { useAuth } from '../hooks/useAuth'
 import JobService from '../services/JobService';
+import { getUserType } from '../helpers/UserTypeHelper'
 
 
 const JobCardContainer = styled.div`
@@ -56,13 +57,14 @@ function JobCard({ role, item, ...props }) {
             {item.description}
           </p>
         </div>
-        <JobCardButtons>
-          {
-            role === 'collaborator' &&
-              <Button variant="primary" style={{ padding: '4px 16px', fontSize: 12, borderRadius: 16 }}>Aceptar</Button>
-          }
+        
+        {role === 'collaborator' &&<JobCardButtons>
+          <Button variant="primary" style={{ padding: '4px 16px', fontSize: 12, borderRadius: 16 }}>Aceptar</Button>
           <Button variant="outline-danger" style={{ padding: '4px 16px', fontSize: 12, borderRadius: 16 }}>Rechazar</Button>
-        </JobCardButtons>
+        </JobCardButtons>}
+        {role === 'employer' &&<JobCardButtons>
+          <Button variant="primary" style={{ padding: '4px 16px', fontSize: 12, borderRadius: 16 }}>Finalizar</Button>
+        </JobCardButtons>}
       </JobCardDescription>
 
       <JobCardMoney>
@@ -125,7 +127,14 @@ function Announcements({ role }) {
   },[]);
 
   const getJobs = async() =>{
-    const result = await JobService.getMyPublishJobs();
+    const userType = getUserType();
+    let result = {};
+    if(userType === "employer"){
+      result = await JobService.getMyPublishJobs();
+    }
+    else{
+      result = await JobService.getAllJobs();
+    }
     if(result.status === 200){
       const data = result.response || [];
       setJobs(data);
@@ -230,12 +239,12 @@ const Container = styled.div`
 
 function Home() {
   const [user, loading, error] = useAuth()
-
+  const userType = getUserType();
   return (
     <Container>
       <Header role={user.role} />
       <Announcements role={user.role} />
-      <ButtonAddJob/>
+      {userType==="employer" && <ButtonAddJob/>}
     </Container>
   )
 }

@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import AuthService from '../services/AuthService';
 import { ReactComponent as ProfileIcon } from '../assets/profile.svg'
 import { useAuth } from './useAuth'
+import { swapUserType } from '../helpers/UserTypeHelper';
 
 const SidebarContainer = styled.div`
   background-color: #00988D;
@@ -36,6 +37,11 @@ function SidebarContent() {
     window.location.href = "/";
   }
 
+  const changeUserType = () => {
+    swapUserType()
+    window.location.href = "/";
+  }
+
   return (
     <SidebarContainer>
       <UserInformation>
@@ -64,10 +70,11 @@ function SidebarContent() {
 
       <div style={{ marginTop: 64 }}>
         <Button
+          onClick={changeUserType}
           variant='outline-but-invalid'
           style={{ border: '1px solid white', color: 'white', borderRadius: 20 }}
         >
-          Cambiar a { user.role === 'employer'? "Empleador": "Empleado" }
+          Cambiar a { user.role === 'employer'? "Colaborador": "Empleador" }
         </Button>
       </div>
       <hr color='#EEEEEE' style={{ margin: '16px -16px' }} />

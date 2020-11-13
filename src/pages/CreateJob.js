@@ -25,12 +25,11 @@ function Formulary() {
   const [district, setDistrict] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [hour, setHour] = useState("");
   const [description, setDescription] = useState("");
 
   const createJob = async() => {
     const job = {
-      title, amount, address, district, startDate, endDate, hour, description
+      title, amount, address, district, startDate, endDate, description
     }
     const result = await JobService.createJob(job);
     console.log("result", result);
@@ -64,15 +63,11 @@ function Formulary() {
         </Form.Group>
         <Form.Group>
           <Form.Label>Fecha de Inicio</Form.Label>
-          <Form.Control onChange={(e)=>setStartDate(e.target.value)} type='text' placeholder='24/07/2020'/>
+          <Form.Control onChange={(e)=>setStartDate(e.target.value)} type='date' placeholder='24/07/2020'/>
         </Form.Group>
         <Form.Group>
           <Form.Label>Fecha de Vencimiento</Form.Label>
-          <Form.Control onChange={(e)=>setEndDate(e.target.value)} type='text' placeholder='24/07/2020'/>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Hora</Form.Label>
-          <Form.Control onChange={(e)=>setHour(e.target.value)} type='text' placeholder='16:00'/>
+          <Form.Control onChange={(e)=>setEndDate(e.target.value)} type='date' placeholder='24/07/2020'/>
         </Form.Group>
         <Form.Group>
           <Form.Label>Descripción</Form.Label>

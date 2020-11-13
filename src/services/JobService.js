@@ -57,7 +57,6 @@ export default class JobService{
         try {
             console.log("job", job);
             if(job === null){
-                
                 throw "Job null"
             }
             let response = await fetch(urlData, {

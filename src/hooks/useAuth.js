@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, createContext, useContext } from 'react'
+import { getUserType } from '../helpers/UserTypeHelper'
 
 const AuthContext = createContext(undefined)
 
@@ -7,7 +8,7 @@ export function AuthProvider({ children }) {
   const user = {
     name: 'Mi Nombre',
     email: 'Mi Correo',
-    role: 'employer'
+    role: getUserType()
   }
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
