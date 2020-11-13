@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState, useEffect}from 'react'
 import styled from 'styled-components'
 
 import Nav from 'react-bootstrap/Nav'
@@ -12,6 +12,9 @@ import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useSidebar } from '../hooks/useSidebar'
 import { ReactComponent as MoneyIcon } from '../assets/money.svg'
 import { useAuth } from '../hooks/useAuth'
+import JobService from '../services/JobService';
+import { getUserType } from '../helpers/UserTypeHelper'
+
 
 const JobCardContainer = styled.div`
   background-color: white;
@@ -41,26 +44,27 @@ const JobCardButtons = styled.div`
   gap: 16px;
 `
 
-function JobCard({ role, ...props }) {
+function JobCard({ role, item, ...props }) {
   return (
     <JobCardContainer {...props}>
       <JobCardDescription>
         <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
-          <h5>Gasfitero</h5>
-          <div style={{ fontSize: 12, marginLeft: 12 }}>15 de Julio</div>
+          <h5>{item.title}</h5>
+           <div style={{ fontSize: 12, marginLeft: 12 }}> {(new Date(item.startDate)).toDateString()}</div>
         </div>
         <div>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            {item.description}
           </p>
         </div>
-        <JobCardButtons>
-          {
-            role === 'collaborator' &&
-              <Button variant="primary" style={{ padding: '4px 16px', fontSize: 12, borderRadius: 16 }}>Aceptar</Button>
-          }
+        
+        {role === 'collaborator' &&<JobCardButtons>
+          <Button variant="primary" style={{ padding: '4px 16px', fontSize: 12, borderRadius: 16 }}>Aceptar</Button>
           <Button variant="outline-danger" style={{ padding: '4px 16px', fontSize: 12, borderRadius: 16 }}>Rechazar</Button>
-        </JobCardButtons>
+        </JobCardButtons>}
+        {role === 'employer' &&<JobCardButtons>
+          <Button variant="primary" style={{ padding: '4px 16px', fontSize: 12, borderRadius: 16 }}>Finalizar</Button>
+        </JobCardButtons>}
       </JobCardDescription>
 
       <JobCardMoney>
@@ -69,7 +73,7 @@ function JobCard({ role, ...props }) {
         </div>
         <div style={{ marginTop: 8 }}>
           <h6>
-            S/. 230.00
+            S/. {item.amount}
           </h6>
         </div>
       </JobCardMoney>
@@ -82,17 +86,68 @@ const AnnouncementsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   gap: 16px;
   
-  padding: 24px 5% 0 5%;
+  padding: 24px 6% 10% 6%;
+  
 `
 
+const ButtonAddJob = () => {
+  return (
+    <div style={{
+        position: "absolute", 
+        bottom: 5, 
+        right: 10, 
+      }}>
+        <a
+        href="/create-job"
+        style={{
+          backgroundColor: "#00988D", 
+          height: 60, 
+          width: 60,
+          borderRadius: 30,
+          color: "#fff",
+          display:"flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+        }}>
+          <span><i style={{fontSize: 30}} class="fas fa-plus"></i></span>
+        </a>
+    </div> 
+  );
+}
+
+
 function Announcements({ role }) {
+  const [jobs, setJobs] = useState([]);
+  
+  useEffect(() => {
+    getJobs();
+  },[]);
+
+  const getJobs = async() =>{
+    let result = {};
+    if(role === "employer"){
+      result = await JobService.getMyPublishJobs();
+    }
+    else{
+      result = await JobService.getAllJobs();
+    }
+    if(result.status === 200){
+      const data = result.response || [];
+      setJobs(data);
+    }
+  }
+
   return (
     <AnnouncementsContainer>
-      <JobCard role={role} />
-      <JobCard role={role} />
-      <JobCard role={role} />
+      {jobs.map((item, index) => {
+        return <JobCard item={item} key={(index+1).toString()} role={role} />
+      })}
+
+      {role==="employer" && <ButtonAddJob/>}
     </AnnouncementsContainer>
   )
 }
@@ -186,11 +241,10 @@ const Container = styled.div`
 
 function Home() {
   const [user, loading, error] = useAuth()
-
   return (
     <Container>
       <Header role={user.role} />
-      <Announcements role={user.role} />
+      <Announcements role={user.role} />     
     </Container>
   )
 }

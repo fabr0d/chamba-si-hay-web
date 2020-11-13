@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Logo from '../assets/logo.svg'
+import AuthService from '../services/AuthService'
 
 const Container = styled.div`
   display: flex;
@@ -22,6 +23,21 @@ const Container = styled.div`
 `
 
 function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const userLogin = async() =>{
+    const result = await AuthService.login(username, password);
+    const {status, data} = result;
+    if(status === 200){
+      AuthService.storageToken(data.token);
+      window.location.href = "/";
+    }
+    else{
+      alert("Datos incorrectos");
+    }
+  }
+
   return (
     <Container>
       <div style={{ marginTop: 50 }}>
@@ -33,14 +49,14 @@ function Login() {
 
       <Form.Group style={{ width: '100%' }}>
         <Form.Label>Usuario</Form.Label>
-        <Form.Control type='text' placeholder='Usuario' name="username"/>
+        <Form.Control onChange={(e)=>setUsername(e.target.value)} type='text' placeholder='Usuario' name="username"/>
         <Form.Label>Contraseña</Form.Label>
-        <Form.Control type='password' placeholder='Contraseña' />
-        <Button variant="primary" block style={{ marginTop: 32 }}>
+        <Form.Control onChange={(e)=>setPassword(e.target.value)} type='password' placeholder='Contraseña' />
+        <Button onClick={userLogin} variant="primary" block style={{ marginTop: 32, backgroundColor:"#53C9BD" }}>
           Iniciar Sesión
         </Button>
-        <Button variant="light" block>
-          Registrarse
+        <Button variant="light" block href="/register">
+          Crear cuenta
         </Button>
       </Form.Group>
     </Container>
