@@ -1,5 +1,5 @@
 export const STORAGE_KEY_USER_INFO = "@userInfo";
-export const STORAGE_KEY_TOKEN = "@tokenSession";
+export const STORAGE_KEY_TOKEN = "@tokenSession1";
 /* STORAGE FUNCTIONS */
 export function storage_key(key, data) {
     const parseData = JSON.stringify(data);
