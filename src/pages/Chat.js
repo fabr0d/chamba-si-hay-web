@@ -1,13 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Navbar from 'react-bootstrap/Navbar'
 import Form from 'react-bootstrap/Form'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
-import Nav from 'react-bootstrap/Nav'
 import InputGroup from 'react-bootstrap/InputGroup'
-import { useSidebar } from '../hooks/useSidebar'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+
+import JobHeader from '../components/JobHeader'
 
 const MessagesContainer = styled.div`
   background-color: #EEEEEE;
@@ -91,46 +90,6 @@ function Messages() {
   )
 }
 
-const InnerNavbar = styled.div`
-  width: 100%;
-`
-
-const NavItem = styled(Nav.Item)`
-  display: flex;
-  flex-grow: 1;
-  justify-content: center;
-`
-
-function Header () {
-  const [toggle] = useSidebar()
-
-  return (
-    <Navbar style={{ padding: 0 }}>
-      <InnerNavbar>
-        <div onClick={toggle} style={{ cursor: 'pointer' }}>
-          <FontAwesomeIcon
-            icon={ faBars }
-            color='white'
-            size='2x'
-          />
-        </div>
-
-        <Nav variant='tabs' defaultActiveKey='announcements' style={{ padding: '0 16px' }}>
-          <NavItem>
-            <Nav.Link href='#' eventKey='announcements'>Chat</Nav.Link>
-          </NavItem>
-          <NavItem>
-            <Nav.Link href='#' eventKey='accepted'>Mapa</Nav.Link>
-          </NavItem>
-          <NavItem>
-            <Nav.Link href='#' eventKey='rejected'>Detalle</Nav.Link>
-          </NavItem>
-        </Nav>
-      </InnerNavbar>
-    </Navbar>
-  )
-}
-
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -139,7 +98,7 @@ const Container = styled.div`
 function Chat() {
   return (
     <Container>
-      <Header />
+      <JobHeader />
       <Messages />
     </Container>
   )

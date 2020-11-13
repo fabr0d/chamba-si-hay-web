@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from 'react'
 import Sidebar from 'react-sidebar'
 import styled from 'styled-components'
 import Button from 'react-bootstrap/Button'
+
 import AuthService from '../services/AuthService';
 import { ReactComponent as ProfileIcon } from '../assets/profile.svg'
 import { useAuth } from './useAuth'
@@ -27,6 +28,16 @@ const Navigation = styled.div`
   gap: 16px;
   
   margin-top: 32px;
+`
+
+const A = styled.a`
+  text-decoration: none;
+  color: ${props => props.active? "white": "#C4C4C4"};
+  
+  :hover {
+    text-decoration: none;  
+    color: ${props => props.active? "white": "#C4C4C4"};
+  }
 `
 
 function SidebarContent() {
@@ -57,15 +68,15 @@ function SidebarContent() {
       </UserInformation>
 
       <Navigation>
-        <div>
+        <A href="/" active>
           Inicio
-        </div>
-        <div style={{ color: '#C4C4C4' }}>
+        </A>
+        <A href="#">
           Mis Trabajos
-        </div>
-        <div style={{ color: '#C4C4C4' }}>
+        </A>
+        <A href="#">
           Perfil
-        </div>
+        </A>
       </Navigation>
 
       <div style={{ marginTop: 64 }}>
@@ -80,12 +91,12 @@ function SidebarContent() {
       <hr color='#EEEEEE' style={{ margin: '16px -16px' }} />
 
       <Navigation>
-        <div style={{ color: '#C4C4C4' }}>
+        <A href="#">
           Configuración
-        </div>
-        <div onClick={logoutUser} style={{ color: '#C4C4C4' }}>
+        </A>
+        <A href="#" onClick={logoutUser} style={{ color: '#C4C4C4' }}>
           Cerrar Sesión
-        </div>
+        </A>
       </Navigation>
     </SidebarContainer>
   )

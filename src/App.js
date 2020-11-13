@@ -7,15 +7,18 @@ import {
 } from "react-router-dom";
 import styled from 'styled-components'
 
+import {ProtectedRoute} from "./components/route/ProtectedRoute";
+
+import { SidebarProvider } from './hooks/useSidebar'
+import { AuthProvider } from './hooks/useAuth'
+
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import JobDescription from './pages/JobDescription'
-import { SidebarProvider } from './hooks/useSidebar'
-import { AuthProvider } from './hooks/useAuth'
 import CreateJob from './pages/CreateJob'
 import Chat from './pages/Chat'
-import {ProtectedRoute} from "./components/route/ProtectedRoute";
+import Map from './pages/Map'
 
 const AppContainer = styled.div`
     display: flex;
@@ -57,7 +60,8 @@ export default function App() {
                 <Route path="/job-description" component={JobDescription} />
                 <Route path="/create-job" component={CreateJob} />
                 <Route path="/chat" component={Chat} />
-                <Route path="*" component={NotFound}/>
+                <Route path="/map" component={Map} />
+                <Route path="*" component={NotFound} />  
               </Switch>
             </Router>
           </AppInnerContainer>
