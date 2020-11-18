@@ -8,17 +8,6 @@ import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 
 import JobHeader from '../components/JobHeader'
 
-const MessagesContainer = styled.div`
-  background-color: #EEEEEE;
-  padding: 16px 32px;
-`
-
-const MessagesInnerContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`
-
 const MessageContainer = styled.div`
   width: 100%;
 `
@@ -49,6 +38,21 @@ function Message({ children: text, isFromOwner = false }) {
     </MessageContainer>
   )
 }
+
+const MessagesContainer = styled.div`
+  background-color: #EEEEEE;
+  padding: 16px 16px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`
+
+const MessagesInnerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-grow: 1;
+`
 
 const InputMessage = styled.div`
   margin-top: 32px;
@@ -91,8 +95,15 @@ function Messages() {
 }
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  
   width: 100%;
-  height: 100%;
+  height: 640px;
+  
+  @media screen and (max-width: 600px) {
+    height: 100%;
+  }
 `
 
 function Chat() {

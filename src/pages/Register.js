@@ -15,10 +15,10 @@ const Container = styled.div`
   background: linear-gradient(rgba(0, 152, 141, 0.68), rgba(0, 152, 141, 0.68)),
   url("/assets/login-register-background.jpg");
   background-size: cover;
-  
-  @media screen and (max-width: 600px) {
-    height: 100%;
-  }
+`
+
+const FormLabel = styled(Form.Label)`
+  color: white;
 `
 
 function Register() {
@@ -32,17 +32,27 @@ function Register() {
       <h1>Hay</h1>
 
       <Form.Group style={{ width: '100%' }}>
-        <Form.Label>Usuario</Form.Label>
-        <Form.Control type='text' placeholder='Usuario' name="username" />
-        <Form.Label>Email</Form.Label>
-        <Form.Control type='email' placeholder='Email' name="email" />
-        <Form.Label>Contraseña</Form.Label>
-        <Form.Control type='password' placeholder='Contraseña' name="password" />
-        <Form.Label>Confirmar Contraseña</Form.Label>
-        <Form.Control type='password' placeholder='Contraseña' name="confirmPassword" />
-        <Button variant="primary" block style={{ marginTop: 32 }}>
-          Confirmar registro
-        </Button>
+        <Form.Group>
+          <FormLabel>Usuario</FormLabel>
+          <Form.Control type='text' placeholder='Usuario' name="username" />
+        </Form.Group>
+        <Form.Group>
+          <FormLabel>Email</FormLabel>
+          <Form.Control type='email' placeholder='Email' name="email" />
+        </Form.Group>
+        <Form.Group>
+          <FormLabel>Contraseña</FormLabel>
+          <Form.Control type='password' placeholder='Contraseña' name="password" />
+        </Form.Group>
+        <Form.Group>
+          <FormLabel>Confirmar Contraseña</FormLabel>
+          <Form.Control type='password' placeholder='Contraseña' name="confirmPassword" />
+        </Form.Group>
+        <Form.Group>
+          <Button variant="primary" block style={{ marginTop: 32 }}>
+            Confirmar registro
+          </Button>
+        </Form.Group>
       </Form.Group>
     </Container>
   )

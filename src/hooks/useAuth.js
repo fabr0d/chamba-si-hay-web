@@ -7,7 +7,7 @@ export function AuthProvider({ children }) {
   const user = {
     name: 'Mi Nombre',
     email: 'Mi Correo',
-    role: 'employer'
+    role: 'collaborator'
   }
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)

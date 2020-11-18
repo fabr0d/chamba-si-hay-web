@@ -21,6 +21,10 @@ const Container = styled.div`
   }
 `
 
+const FormLabel = styled(Form.Label)`
+  color: white;
+`
+
 function Login() {
   return (
     <Container>
@@ -32,16 +36,24 @@ function Login() {
       <h1>Hay</h1>
 
       <Form.Group style={{ width: '100%' }}>
-        <Form.Label>Usuario</Form.Label>
-        <Form.Control type='text' placeholder='Usuario' name="username"/>
-        <Form.Label>Contraseña</Form.Label>
-        <Form.Control type='password' placeholder='Contraseña' />
-        <Button variant="primary" block style={{ marginTop: 32 }}>
-          Iniciar Sesión
-        </Button>
-        <Button variant="light" block>
-          Registrarse
-        </Button>
+        <Form.Group>
+          <FormLabel>Usuario</FormLabel>
+          <Form.Control type='text' placeholder='Usuario' name="username"/>
+        </Form.Group>
+
+        <Form.Group>
+          <FormLabel>Contraseña</FormLabel>
+          <Form.Control type='password' placeholder='Contraseña' />
+        </Form.Group>
+
+        <Form.Group>
+          <Button variant="primary" block style={{ marginTop: 32 }}>
+            Iniciar Sesión
+          </Button>
+          <Button variant="light" block>
+            Crear nueva cuenta
+          </Button>
+        </Form.Group>
       </Form.Group>
     </Container>
   )

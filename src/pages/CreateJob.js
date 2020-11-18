@@ -1,11 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Navbar from 'react-bootstrap/Navbar'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+
+import BackHeader from '../components/BackHeader'
 
 const FormularyContainer = styled.div`
   background-color: #EEEEEE;
@@ -62,39 +61,24 @@ function Formulary() {
   )
 }
 
-const InnerNavbar = styled.div`
-  width: 100%;
-`
-
-const BarsAndTitle = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
-function Header () {
+function CreateJobHeader () {
   return (
-    <Navbar style={{ padding: 0 }}>
-      <InnerNavbar>
-        <BarsAndTitle>
-          <FontAwesomeIcon icon={ faChevronLeft } color='white' size='2x' />
-          <h2 style={{ marginLeft: 16 }}>
-            Nueva Chamba
-          </h2>
-        </BarsAndTitle>
-      </InnerNavbar>
-    </Navbar>
+    <BackHeader title='Nueva Chamba'/>
   )
 }
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  margin-bottom: 64px;
+  
+  @media screen and (max-width: 600px) {
+    margin-bottom: 0;
+  }
 `
 
 function CreateJob() {
   return (
     <Container>
-      <Header />
+      <CreateJobHeader />
       <Formulary />
     </Container>
   )

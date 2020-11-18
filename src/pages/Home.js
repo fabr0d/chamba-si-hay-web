@@ -2,14 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import Button from 'react-bootstrap/Button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
-import { useSidebar } from '../hooks/useSidebar'
+import MenuHeader from '../components/MenuHeader'
 import { ReactComponent as MoneyIcon } from '../assets/money.svg'
 import { useAuth } from '../hooks/useAuth'
 
@@ -97,101 +96,70 @@ function Announcements({ role }) {
   )
 }
 
-const InnerNavbar = styled.div`
-  width: 100%;
-`
-
-const BarsAndTitle = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
 const Searcher = styled.div`
   background-color: white;
   border-radius: 50px;
 `
 
-function Header ({ role }) {
-  const [toggle] = useSidebar()
-
+function HomeHeader ({ role }) {
   return (
-    <Navbar style={{ padding: 0 }}>
-      <InnerNavbar>
-        <BarsAndTitle>
-          <div onClick={toggle} style={{ cursor: 'pointer' }}>
-            <FontAwesomeIcon
-              icon={ faBars }
-              color='white'
-              size='2x'
+    <MenuHeader title={ role === 'collaborator'? "Mis Trabajos": "Mis Propuestas" }>
+      {
+        role === 'collaborator' &&
+        <Searcher>
+          <InputGroup>
+            <InputGroup.Prepend>
+              <InputGroup.Text style={ { background: 'transparent', border: '1px solid transparent' } }>
+                <FontAwesomeIcon icon={ faSearch } color='#53C9BD' size='lg' />
+              </InputGroup.Text>
+            </InputGroup.Prepend>
+            <Form.Control
+              style={ { display: 'flex', flexGrow: 1, border: 0, borderRadius: 50 } }
+              type='text'
+              placeholder='Buscar siguiente empleo'
+              name='search'
             />
-          </div>
-          <h2 style={{ marginLeft: 16 }}>
-            { role === 'collaborator'? "Mis Trabajos": "Mis Propuestas" }
-          </h2>
-        </BarsAndTitle>
+          </InputGroup>
+        </Searcher>
+      }
 
+      <Nav className="justify-content-center" variant='tabs' defaultActiveKey='announcements' style={ { marginTop: 32 } }>
         {
-          role === 'collaborator' &&
-            <Searcher>
-              <InputGroup>
-                <InputGroup.Prepend>
-                  <InputGroup.Text style={ { background: 'transparent', border: '1px solid transparent' } }>
-                    <FontAwesomeIcon icon={ faSearch } color='#53C9BD' size='lg' />
-                  </InputGroup.Text>
-                </InputGroup.Prepend>
-                <Form.Control
-                  style={ { display: 'flex', flexGrow: 1, border: 0, borderRadius: 50 } }
-                  type='text'
-                  placeholder='Buscar siguiente empleo'
-                  name='search'
-                />
-              </InputGroup>
-            </Searcher>
-        }
-
-        <Nav className="justify-content-center" variant='tabs' defaultActiveKey='announcements' style={ { marginTop: 32 } }>
-          {
-            role === 'collaborator'?
-              <>
-                <Nav.Item>
-                  <Nav.Link href='#' eventKey='announcements'>Anuncios</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link href='#' eventKey='accepted'>Aceptados</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link href='#' eventKey='rejected'>Rechazados</Nav.Link>
-                </Nav.Item>
-              </>
+          role === 'collaborator'?
+            <>
+              <Nav.Item>
+                <Nav.Link href='#' eventKey='announcements'>Anuncios</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href='#' eventKey='accepted'>Aceptados</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href='#' eventKey='rejected'>Rechazados</Nav.Link>
+              </Nav.Item>
+            </>
             :
-              <>
-                <Nav.Item>
-                  <Nav.Link href='#' eventKey='announcements'>Activos</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                  <Nav.Link href='#' eventKey='accepted'>Vencidos</Nav.Link>
-                </Nav.Item>
-              </>
-          }
-        </Nav>
-      </InnerNavbar>
-    </Navbar>
+            <>
+              <Nav.Item>
+                <Nav.Link href='#' eventKey='announcements'>Activos</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href='#' eventKey='accepted'>Vencidos</Nav.Link>
+              </Nav.Item>
+            </>
+        }
+      </Nav>
+    </MenuHeader>
   )
 }
-
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-`
 
 function Home() {
   const [user, loading, error] = useAuth()
 
   return (
-    <Container>
-      <Header role={user.role} />
+    <div>
+      <HomeHeader role={user.role} />
       <Announcements role={user.role} />
-    </Container>
+    </div>
   )
 }
 

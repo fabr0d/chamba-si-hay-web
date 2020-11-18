@@ -1,10 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-
-import Navbar from 'react-bootstrap/Navbar'
 import Button from 'react-bootstrap/Button'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import MenuHeader from '../components/MenuHeader'
 
 const DescriptionContainer = styled.div`
   background-color: #EEEEEE;
@@ -75,38 +72,14 @@ function Description() {
       </DescriptionContent>
 
       <OperationsContainer>
-        <Button variant='outline-primary'>
+        <Button variant='primary' style={{ color: 'white', width: '100%' }}>
           Aceptar
         </Button>
-        <Button variant='danger'>
+        <Button variant='danger' style={{ width: '100%' }}>
           Rechazar
         </Button>
       </OperationsContainer>
     </DescriptionContainer>
-  )
-}
-
-const InnerNavbar = styled.div`
-  width: 100%;
-`
-
-const BarsAndTitle = styled.div`
-  display: flex;
-  flex-direction: row;
-`
-
-function Header () {
-  return (
-    <Navbar style={{ padding: 0 }}>
-      <InnerNavbar>
-        <BarsAndTitle>
-          <FontAwesomeIcon icon={ faBars } color='white' size='2x' />
-          <h2 style={{ marginLeft: 16 }}>
-            Descripción del trabajo
-          </h2>
-        </BarsAndTitle>
-      </InnerNavbar>
-    </Navbar>
   )
 }
 
@@ -118,7 +91,7 @@ const Container = styled.div`
 function JobDescription() {
   return (
     <Container>
-      <Header />
+      <MenuHeader title='Trabajo' />
       <Description />
     </Container>
   )

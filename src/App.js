@@ -17,30 +17,32 @@ import CreateJob from './pages/CreateJob'
 import Chat from './pages/Chat'
 import Map from './pages/Map'
 
-
 const AppContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
 
     font-family: Roboto, sans-serif;
-    width: 100vw;
-    height: 100vh;
     background-color: #53C9BD;
+    
+    width: 100vw;
+    min-height: 100vh;
 `
 
 const AppInnerContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    
     width: 100%;
     max-width: 400px;
-    margin-top: 100px;
+    
+    min-height: 640px;
+    padding-top: 100px;
     
     @media screen and (max-width: 600px) {
         max-width: 100vw;
-        max-height: 100vh;
-        width: 100%;
-        height: 100%;
-
-        margin-top: 0;
+        min-height: 100vh;
+        padding: 0;
     }
 `
 

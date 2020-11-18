@@ -9,8 +9,7 @@ const AnyReactComponent = ({ text }) => <div style={{ color: 'blue' }}>{text}</d
 const MapContainer = styled.div`
   background-color: #EEEEEE;
   padding: 16px 32px;
-  height: 60vh;
-  width: 100%;
+  flex-grow: 1;
 `
 
 function MapContent() {
@@ -40,8 +39,15 @@ function MapContent() {
 }
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+
   width: 100%;
-  height: 100%;
+  height: 640px;
+  
+  @media screen and (max-width: 600px) {
+    height: 100%;
+  }
 `
 
 function Map() {
