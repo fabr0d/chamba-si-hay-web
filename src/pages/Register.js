@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+
+import AuthService from '../services/AuthService'
 import Logo from '../assets/logo.svg'
 
 const Container = styled.div`
@@ -22,6 +24,30 @@ const FormLabel = styled(Form.Label)`
 `
 
 function Register() {
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
+
+  const userRegister = async() => {
+    const user = {
+      firstName: name,
+      lastName: lastName,
+      email: email,
+      password: password
+    }
+    const result = await AuthService.register(user);
+    const {status} = result;
+    if(status === 200){
+      window.location.href = "/";
+    }
+    else{
+      alert("Error en registro")
+    }
+  }
+
+
   return (
     <Container>
       <div style={{ marginTop: 50 }}>
@@ -33,23 +59,27 @@ function Register() {
 
       <Form.Group style={{ width: '100%' }}>
         <Form.Group>
-          <FormLabel>Usuario</FormLabel>
-          <Form.Control type='text' placeholder='Usuario' name="username" />
+          <FormLabel>Nombre</FormLabel>
+          <Form.Control onChange={(e)=>setName(e.target.value)} type='text' placeholder='Nombre' name="name" />
+        </Form.Group>
+        <Form.Group>
+          <FormLabel>Apellido</FormLabel>
+          <Form.Control onChange={(e)=>setLastName(e.target.value)} type='text' placeholder='Apellido' name="lastname" />
         </Form.Group>
         <Form.Group>
           <FormLabel>Email</FormLabel>
-          <Form.Control type='email' placeholder='Email' name="email" />
+          <Form.Control onChange={(e)=>setEmail(e.target.value)} type='email' placeholder='Email' name="email" />
         </Form.Group>
         <Form.Group>
           <FormLabel>Contraseña</FormLabel>
-          <Form.Control type='password' placeholder='Contraseña' name="password" />
+          <Form.Control onChange={(e)=>setPassword(e.target.value)} type='password' placeholder='Contraseña' name="password" />
         </Form.Group>
         <Form.Group>
           <FormLabel>Confirmar Contraseña</FormLabel>
-          <Form.Control type='password' placeholder='Contraseña' name="confirmPassword" />
+          <Form.Control onChange={(e)=>setRePassword(e.target.value)} type='password' placeholder='Contraseña' name="confirmPassword" />
         </Form.Group>
         <Form.Group>
-          <Button variant="primary" block style={{ marginTop: 32 }}>
+          <Button onClick={userRegister} variant="primary" block style={{ marginTop: 32 }}>
             Confirmar registro
           </Button>
         </Form.Group>

@@ -2,9 +2,12 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  useLocation
 } from "react-router-dom";
 import styled from 'styled-components'
+
+import {ProtectedRoute} from "./components/route/ProtectedRoute";
 
 import { SidebarProvider } from './hooks/useSidebar'
 import { AuthProvider } from './hooks/useAuth'
@@ -54,13 +57,14 @@ export default function App() {
           <AppInnerContainer>
             <Router>
               <Switch>
-                <Route exact path="/" component={Home} />
+                <ProtectedRoute exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
                 <Route path="/job-description" component={JobDescription} />
                 <Route path="/create-job" component={CreateJob} />
                 <Route path="/chat" component={Chat} />
                 <Route path="/map" component={Map} />
+                <Route path="*" component={NotFound} />  
               </Switch>
             </Router>
           </AppInnerContainer>
@@ -71,3 +75,12 @@ export default function App() {
 }
 
 
+function NotFound() {
+  return (
+      <div>
+        <h3 className={"text-light"}>
+          404 Not Found
+        </h3>
+      </div>
+  );
+}
