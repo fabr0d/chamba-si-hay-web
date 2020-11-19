@@ -59,8 +59,8 @@ export default class AuthService {
     }
   }
 
-  static async getUserInfoById(userId) {
-    const urlData = apiUrl + "/user/info/" + userId;
+  static async getUserInfoById() {
+    const urlData = apiUrl + "/user/info" + this.tokenToParam();
     try {
       let response = await fetch(urlData, {
         method: "GET",
