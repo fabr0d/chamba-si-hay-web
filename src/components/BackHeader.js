@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 
-const IconButton = styled.div`
+const IconButton = styled.a`
   cursor: pointer;
 `;
 
@@ -14,11 +14,11 @@ const IconAndTitle = styled.div`
   align-items: center;
 `;
 
-function BackHeader({ title, children, onBack }) {
+function BackHeader({ title, children, onBack, href }) {
   return (
     <InternalHeader>
       <IconAndTitle>
-        <IconButton onClick={onBack}>
+        <IconButton onClick={onBack} href={href}>
           <FontAwesomeIcon icon={faChevronLeft} color="white" size="lg" />
         </IconButton>
 

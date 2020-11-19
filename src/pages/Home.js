@@ -4,9 +4,9 @@ import styled from "styled-components";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import Button from "react-bootstrap/Button";
+import BootstrapButton from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import MenuHeader from "../components/MenuHeader";
 import { ReactComponent as MoneyIcon } from "../assets/money.svg";
@@ -41,7 +41,15 @@ const JobCardButtons = styled.div`
   gap: 16px;
 `;
 
+const Button = styled(BootstrapButton)`
+  padding: 4px 16px;
+  font-size: 12px;
+  border-radius: 16px;
+`;
+
 function JobCard({ role, item, ...props }) {
+  const href = `/job-description/${item._id}`;
+
   return (
     <JobCardContainer {...props}>
       <JobCardDescription>
@@ -62,32 +70,24 @@ function JobCard({ role, item, ...props }) {
           <p>{item.description}</p>
         </div>
 
-        {role === "collaborator" && (
-          <JobCardButtons>
-            <Button
-              variant="primary"
-              style={{ padding: "4px 16px", fontSize: 12, borderRadius: 16 }}
-            >
-              Aceptar
+        <JobCardButtons>
+          {role === "collaborator" && (
+            <>
+              <Button variant="primary" href={href}>
+                Aceptar
+              </Button>
+              <Button variant="outline-danger" href={href}>
+                Rechazar
+              </Button>
+            </>
+          )}
+
+          {role === "employer" && (
+            <Button variant="outline-danger" href={href}>
+              Cancelar
             </Button>
-            <Button
-              variant="outline-danger"
-              style={{ padding: "4px 16px", fontSize: 12, borderRadius: 16 }}
-            >
-              Rechazar
-            </Button>
-          </JobCardButtons>
-        )}
-        {role === "employer" && (
-          <JobCardButtons>
-            <Button
-              variant="primary"
-              style={{ padding: "4px 16px", fontSize: 12, borderRadius: 16 }}
-            >
-              Finalizar
-            </Button>
-          </JobCardButtons>
-        )}
+          )}
+        </JobCardButtons>
       </JobCardDescription>
 
       <JobCardMoney>
@@ -101,17 +101,6 @@ function JobCard({ role, item, ...props }) {
     </JobCardContainer>
   );
 }
-
-const AnnouncementsContainer = styled.div`
-  background-color: #eeeeee;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  gap: 16px;
-
-  padding: 24px 6% 10% 6%;
-`;
 
 const ButtonAddJob = () => {
   return (
@@ -136,12 +125,24 @@ const ButtonAddJob = () => {
         }}
       >
         <span>
-          <i style={{ fontSize: 30 }} class="fas fa-plus"></i>
+          <FontAwesomeIcon icon={faPlus} style={{ fontSize: 30 }} />
         </span>
       </a>
     </div>
   );
 };
+
+const AnnouncementsContainer = styled.div`
+  background-color: #eeeeee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  gap: 16px;
+
+  padding: 24px 6% 10% 6%;
+  min-height: 100%;
+`;
 
 function Announcements({ role }) {
   const [jobs, setJobs] = useState([]);
@@ -254,6 +255,10 @@ function HomeHeader({ role }) {
     </MenuHeader>
   );
 }
+
+const Container = styled.div`
+  min-height: 640px;
+`;
 
 function Home() {
   const [user, loading, error] = useAuth();

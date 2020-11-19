@@ -23,3 +23,7 @@ h2 {
   font-size: 28px;
   font-weight: bold;
 }
+
+.btn.btn-primary {
+  color: white;
+}

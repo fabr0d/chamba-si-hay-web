@@ -115,10 +115,6 @@ function Formulary() {
   );
 }
 
-function CreateJobHeader() {
-  return <BackHeader title="Nueva Chamba" />;
-}
-
 const Container = styled.div`
   margin-bottom: 64px;
 
@@ -130,7 +126,7 @@ const Container = styled.div`
 function CreateJob() {
   return (
     <Container>
-      <CreateJobHeader />
+      <BackHeader title="Nueva Chamba" href="/" />
       <Formulary />
     </Container>
   );

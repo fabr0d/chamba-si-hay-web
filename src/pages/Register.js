@@ -11,12 +11,20 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  padding: 64px;
-  width: 100%;
-
   background: linear-gradient(rgba(0, 152, 141, 0.68), rgba(0, 152, 141, 0.68)),
     url("/assets/login-register-background.jpg");
   background-size: cover;
+
+  padding: 48px;
+  width: 100%;
+
+  margin-top: -32px;
+  margin-bottom: 64px;
+
+  @media screen and (max-width: 600px) {
+    padding: 64px;
+    margin: 0;
+  }
 `;
 
 const FormLabel = styled(Form.Label)`
