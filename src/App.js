@@ -1,53 +1,48 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useLocation
-} from "react-router-dom";
-import styled from 'styled-components'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import styled from "styled-components";
 
-import {ProtectedRoute} from "./components/route/ProtectedRoute";
+import { ProtectedRoute } from "./components/route/ProtectedRoute";
 
-import { SidebarProvider } from './hooks/useSidebar'
-import { AuthProvider } from './hooks/useAuth'
+import { SidebarProvider } from "./hooks/useSidebar";
+import { AuthProvider } from "./hooks/useAuth";
 
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Home from './pages/Home'
-import JobDescription from './pages/JobDescription'
-import CreateJob from './pages/CreateJob'
-import Chat from './pages/Chat'
-import Map from './pages/Map'
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import JobDescription from "./pages/JobDescription";
+import CreateJob from "./pages/CreateJob";
+import Chat from "./pages/Chat";
+import Map from "./pages/Map";
 
 const AppContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 
-    font-family: Roboto, sans-serif;
-    background-color: #53C9BD;
-    
-    width: 100vw;
-    min-height: 100vh;
-`
+  font-family: Roboto, sans-serif;
+  background-color: #53c9bd;
+
+  width: 100vw;
+  min-height: 100vh;
+`;
 
 const AppInnerContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    
-    width: 100%;
-    max-width: 400px;
-    
-    min-height: 640px;
-    padding-top: 100px;
-    
-    @media screen and (max-width: 600px) {
-        max-width: 100vw;
-        min-height: 100vh;
-        padding: 0;
-    }
-`
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 400px;
+
+  min-height: 640px;
+  padding-top: 100px;
+
+  @media screen and (max-width: 600px) {
+    max-width: 100vw;
+    min-height: 100vh;
+    padding: 0;
+  }
+`;
 
 export default function App() {
   return (
@@ -64,7 +59,7 @@ export default function App() {
                 <Route path="/create-job" component={CreateJob} />
                 <Route path="/chat" component={Chat} />
                 <Route path="/map" component={Map} />
-                <Route path="*" component={NotFound} />  
+                <Route path="*" component={NotFound} />
               </Switch>
             </Router>
           </AppInnerContainer>
@@ -74,13 +69,10 @@ export default function App() {
   );
 }
 
-
 function NotFound() {
   return (
-      <div>
-        <h3 className={"text-light"}>
-          404 Not Found
-        </h3>
-      </div>
+    <div>
+      <h3 className={"text-light"}>404 Not Found</h3>
+    </div>
   );
 }
