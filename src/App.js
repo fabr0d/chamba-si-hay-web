@@ -55,7 +55,7 @@ export default function App() {
                 <ProtectedRoute exact path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
-                <Route path="/job-description" component={JobDescription} />
+                <Route path="/job-description/:id" component={JobDescription} />
                 <Route path="/create-job" component={CreateJob} />
                 <Route path="/chat" component={Chat} />
                 <Route path="/map" component={Map} />

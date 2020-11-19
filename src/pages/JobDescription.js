@@ -65,13 +65,19 @@ function Description({ role }) {
     description: "loading",
   });
 
-const OperationsContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-`;
+  useEffect(() => {
+    const getOneJob = async () => {
+      const result = await JobService.getJob(id);
 
-function Description() {
+      if (result.status === 200) {
+        const job = result.response.job || {};
+        setJob(job);
+      }
+    };
+
+    getOneJob();
+  }, []);
+
   return (
     <DescriptionContainer>
       <CardContainer>
@@ -128,10 +134,12 @@ const Container = styled.div`
 `;
 
 function JobDescription() {
+  const [user] = useAuth();
+
   return (
     <Container>
-      <MenuHeader title="Trabajo" />
-      <Description />
+      <BackHeader title="Trabajo" href="/" />
+      <Description role={user.role} />
     </Container>
   );
 }

@@ -148,27 +148,26 @@ function Announcements({ role }) {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
+    const getJobs = async () => {
+      const result =
+        role === "employer"
+          ? await JobService.getMyPublishJobs()
+          : await JobService.getAllJobs();
+
+      if (result.status === 200) {
+        const data = result.response || [];
+        setJobs(data);
+      }
+    };
+
     getJobs();
   }, []);
 
-  const getJobs = async () => {
-    let result = {};
-    if (role === "employer") {
-      result = await JobService.getMyPublishJobs();
-    } else {
-      result = await JobService.getAllJobs();
-    }
-    if (result.status === 200) {
-      const data = result.response || [];
-      setJobs(data);
-    }
-  };
-
   return (
     <AnnouncementsContainer>
-      {jobs.map((item, index) => {
-        return <JobCard item={item} key={(index + 1).toString()} role={role} />;
-      })}
+      {jobs.map((item, index) => (
+        <JobCard key={(index + 1).toString()} item={item} role={role} />
+      ))}
 
       {role === "employer" && <ButtonAddJob />}
     </AnnouncementsContainer>
@@ -261,13 +260,13 @@ const Container = styled.div`
 `;
 
 function Home() {
-  const [user, loading, error] = useAuth();
+  const [user] = useAuth();
 
   return (
-    <div>
+    <Container>
       <HomeHeader role={user.role} />
       <Announcements role={user.role} />
-    </div>
+    </Container>
   );
 }
 

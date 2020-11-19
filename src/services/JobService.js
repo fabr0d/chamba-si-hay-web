@@ -25,6 +25,26 @@ export default class JobService {
     }
   }
 
+  static async getJob(id) {
+    const urlData = apiUrl + "/jobs/info/" + id + AuthService.tokenToParam();
+    try {
+      let response = await fetch(urlData, {
+        method: "GET",
+      });
+      const status = response.status;
+      const responseJson = await response.json();
+      return {
+        status: status,
+        response: responseJson,
+      };
+    } catch (error) {
+      return {
+        status: 404,
+        response: null,
+      };
+    }
+  }
+
   static async getMyPublishJobs() {
     const urlData = apiUrl + "/jobs/mine" + AuthService.tokenToParam();
     try {
